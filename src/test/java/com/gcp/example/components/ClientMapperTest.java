@@ -1,7 +1,7 @@
 package com.gcp.example.components;
 
-import example.gcp.Client;
-import example.gcp.ClientMainInfo;
+import com.gcp.example.model.Client;
+import com.gcp.example.model.ClientMainInfo;
 import lombok.AllArgsConstructor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

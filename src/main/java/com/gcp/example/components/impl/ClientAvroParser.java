@@ -1,7 +1,7 @@
 package com.gcp.example.components.impl;
 
 import com.gcp.example.components.AvroParser;
-import example.gcp.Client;
+import com.gcp.example.model.Client;
 import org.apache.avro.io.DatumReader;
 import org.apache.avro.specific.SpecificDatumReader;
 import org.springframework.stereotype.Service;

@@ -1,8 +1,6 @@
 package com.gcp.example.components.impl;
 
 import com.gcp.example.components.AvroInputStreamConverter;
-import example.gcp.Client;
-import example.gcp.ClientMainInfo;
 import org.apache.avro.file.DataFileWriter;
 import org.apache.avro.io.DatumWriter;
 import org.apache.avro.specific.SpecificDatumWriter;
