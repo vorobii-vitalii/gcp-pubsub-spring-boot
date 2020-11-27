@@ -18,6 +18,11 @@ import org.springframework.stereotype.Component;
 public class MessageHandlerImpl implements MessageHandler {
     private final MessageProcessor messageProcessor;
 
+    /**
+     * If delivered message was processed successfully or the format is unacceptable
+     * the server will acknowledge the message
+     * In other case it will continue to accept that
+     */
     @ServiceActivator(inputChannel = "pubsubInputChannel")
     @Override
     public void handleMessage(Message<?> message) throws MessagingException {

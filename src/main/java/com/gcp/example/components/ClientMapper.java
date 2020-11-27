@@ -4,6 +4,11 @@ import com.gcp.example.model.Client;
 import com.gcp.example.model.ClientMainInfo;
 import org.springframework.stereotype.Component;
 
+/**
+ * Implementation of Client mapper to ClientMainInfo
+ * @see Client
+ * @see ClientMainInfo
+ */
 @Component
 public class ClientMapper implements Mapper<Client, ClientMainInfo> {
 

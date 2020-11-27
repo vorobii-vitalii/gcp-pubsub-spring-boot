@@ -12,6 +12,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * Stands for converting Avro Object to Input Stream in order to pass it to BigQuery for processing
+ */
 @Service
 public class GenericAvroInputStreamConverter<T extends SpecificRecord> implements AvroInputStreamConverter<T> {
     @Override
