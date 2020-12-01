@@ -82,38 +82,6 @@ class MessageProcessorImplTest {
         );
     }
 
-//    @Test
-//    void testCorrectInputStreamProducesSuccessfulMethodExecution() throws IOException {
-//        final Client client = new Client(1L, "George", "123", "New York");
-//        final ClientMainInfo clientMainInfo = new ClientMainInfo(1L, "George");
-//
-//        final InputStream expectedInputStream = new ByteArrayInputStream(new byte[] {1, 2, 3});
-//
-//        GoogleStorageResource mockGSR = mock(GoogleStorageResource.class);
-//        when(mockGSR.getInputStream()).thenReturn(expectedInputStream);
-//
-//        when(clientAvroParser.retrieve(expectedInputStream)).thenReturn(client);
-//
-//
-//        final InputStream clientInputStream = new ByteArrayInputStream(new byte[] {1, 2, 3});
-//        final InputStream clientMainInfoInputStream = new ByteArrayInputStream(new byte[] {4, 5, 6});
-//
-//        when(avroInputStreamConverter.convert(client)).thenReturn(clientInputStream);
-//        when(avroInputStreamConverter.convert(clientMainInfo)).thenReturn(clientMainInfoInputStream);
-//
-//        final SettableListenableFuture<Job> future = new SettableListenableFuture<>();
-//        future.set(null);
-//
-//        when(bigQueryClientAvroFileGateway.writeToBigQueryTable(clientInputStream, "Client"))
-//                .thenReturn(future);
-//
-//        when(bigQueryClientAvroFileGateway.writeToBigQueryTable(clientMainInfoInputStream, "Client_Main_Info"))
-//                .thenReturn(future);
-//
-//        messageProcessor.process(mockGSR);
-//        // Everything should run fine
-//    }
-
     @Test
     void testFormGoogleStorageURI() {
         final String generatedLink = messageProcessor.formGoogleStorageLink(messageAttributes);
