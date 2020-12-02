@@ -29,23 +29,6 @@ import java.time.Duration;
 @Slf4j
 public class GCPConfig {
 
-//    @Bean
-//    public PubSubInboundChannelAdapter messageChannelAdapter(
-//            @Qualifier("pubsubInputChannel") MessageChannel inputChannel,
-//            PubSubTemplate pubSubTemplate) {
-//        PubSubInboundChannelAdapter adapter =
-//                new PubSubInboundChannelAdapter(pubSubTemplate, "AVRO_PROCESSOR");
-//        adapter.setOutputChannel(inputChannel);
-//        adapter.setAckMode(AckMode.MANUAL);
-//
-//        return adapter;
-//    }
-//
-//    @Bean
-//    public MessageChannel pubsubInputChannel() {
-//        return new DirectChannel();
-//    }
-
     @Bean
     public DirectChannel bigQueryWriteDataChannel() {
         return new DirectChannel();
