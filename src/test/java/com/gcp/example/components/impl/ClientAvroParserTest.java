@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.*;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -27,7 +28,12 @@ class ClientAvroParserTest {
 
     @Test
     public void testParseCorrectFile() throws IOException {
-        Client client = clientAvroParser.retrieve(inputStream);
+        final List<Client> clients = clientAvroParser.retrieve(inputStream);
+
+        assertEquals(1, clients.size());
+
+        final Client client = clients.get(0);
+
         assertEquals(4L, client.getId());
         assertEquals("Vitalii", client.getName().toString());
         assertEquals("102", client.getPhone().toString());
@@ -37,9 +43,7 @@ class ClientAvroParserTest {
     @Test
     public void testWrongFileThrowsException() {
         InputStream corruptedInputStream = new ByteArrayInputStream(new byte[]{1, 2, 3});
-        assertThrows(IOException.class, () -> {
-            clientAvroParser.retrieve(corruptedInputStream);
-        });
+        assertThrows(IOException.class, () -> clientAvroParser.retrieve(corruptedInputStream));
     }
 
 }
