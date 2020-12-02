@@ -12,7 +12,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 @SpringBootTest
@@ -38,7 +38,7 @@ class ClientAvroInputStreamConverterTest {
                 .setPhone("102")
                 .build();
 
-        final InputStream obtainedInputStream = avroInputStreamConverter.convert(client);
+        final InputStream obtainedInputStream = avroInputStreamConverter.convert(List.of(client));
         checkForIdentity(obtainedInputStream, correctInputStream);
     }
 
