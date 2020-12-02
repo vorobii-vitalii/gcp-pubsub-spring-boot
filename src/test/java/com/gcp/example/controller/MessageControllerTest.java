@@ -1,23 +1,32 @@
 package com.gcp.example.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.gcp.example.components.MessageProcessor;
+import com.gcp.example.components.Mapper;
+import com.gcp.example.components.impl.BodyGSMessageMapper;
+import com.gcp.example.model.GSMessage;
+import com.gcp.example.services.MessageProcessor;
 import com.gcp.example.exceptions.MessageProcessingException;
 import com.gcp.example.model.Body;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(MessageController.class)
+
+@RunWith(SpringRunner.class)
+@SpringBootTest
+@AutoConfigureMockMvc
 class MessageControllerTest {
     private static final String CORRECT_OBJECT_ID = "someObjId";
     private static final String CORRECT_BUCKET_ID = "someBucketId";
@@ -33,6 +42,9 @@ class MessageControllerTest {
 
     @MockBean
     private MessageProcessor messageProcessor;
+
+    @Autowired
+    private Mapper<Body, GSMessage> bodyGSMessageMapper;
 
     private Body correctBody;
     private Body wrongBody;
@@ -68,8 +80,11 @@ class MessageControllerTest {
     @Test
     public void testCorrectPostRequest() throws Exception {
         final String json = objectMapper.writeValueAsString(correctBody);
+        final GSMessage gsMessage = bodyGSMessageMapper.map(correctBody);
+
         doNothing()
-                .when(messageProcessor).process(correctBody.getMessage().getAttributes());
+                .when(messageProcessor)
+                .process(gsMessage);
 
         mvc.perform(
                 post("/")
@@ -82,8 +97,10 @@ class MessageControllerTest {
     @Test
     public void testWrongPostRequest() throws Exception {
         final String json = objectMapper.writeValueAsString(wrongBody);
+        final GSMessage gsMessage = bodyGSMessageMapper.map(wrongBody);
+
         doThrow(MessageProcessingException.class)
-                .when(messageProcessor).process(wrongBody.getMessage().getAttributes());
+                .when(messageProcessor).process(gsMessage);
 
         mvc.perform(
                 post("/")
