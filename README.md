@@ -1,6 +1,6 @@
 # _**Diagram of system**_
 
-![Alt text](Diagram.png?raw=true "DB Schema")
+![Alt text](Diagram_Fixed.png?raw=true "DB Schema")
  
 ### _Testing result_ 
  
