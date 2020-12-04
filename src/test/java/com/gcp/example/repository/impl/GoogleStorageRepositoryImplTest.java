@@ -6,6 +6,7 @@ import com.gcp.example.model.GSMessage;
 import com.gcp.example.repository.GoogleStorageRepository;
 import com.gcp.example.services.impl.MessageProcessorImpl;
 import com.google.cloud.storage.Storage;
+import com.google.cloud.storage.StorageException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.cloud.gcp.storage.GoogleStorageResource;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.spy;
 
 @SpringBootTest
 class GoogleStorageRepositoryImplTest {
@@ -40,6 +43,13 @@ class GoogleStorageRepositoryImplTest {
     void verifyResourceBucketNameCorrectness() {
         final GoogleStorageResource gsResource = googleStorageRepository.getResource(gsMessage);
         assertEquals("123", gsResource.getBucketName());
+    }
+
+    @Test
+    void testResourceStreamIsNotApproachableWhenBuckerIsUndefined() {
+        GoogleStorageResource resource = spy(googleStorageRepository.getResource(gsMessage));
+        doReturn(false).when(resource).isBucket();
+        assertThrows(StorageException.class, resource::getInputStream);
     }
 
 }
