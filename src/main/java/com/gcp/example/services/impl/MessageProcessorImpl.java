@@ -64,6 +64,7 @@ public class MessageProcessorImpl implements MessageProcessor {
         }
         catch ( BigQueryException | IOException e) {
             log.error("Message processing has failed");
+            e.printStackTrace();
             throw new MessageProcessingException();
         }
     }
